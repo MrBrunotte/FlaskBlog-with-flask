@@ -1,13 +1,9 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
+from flask import render_template, url_for, flash, redirect
+from flaskblog import app
+from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.models import User, Post
 
-app = Flask(__name__)   # __name__ is equal to __main__
-
-# use Python to get the random bytes: import secrets --> secrets.token_hex(16)
-app.config['SECRET_KEY'] = 'a0b645caee78ca9c9c5f920ca7980c67'
-
-# set up dummy variables (posts)
-posts = [
+posts = [       # set up dummy variables (posts)
     {
         'author': 'Stefan Brunotte',
         'title': 'Blog Post 1',
@@ -55,7 +51,3 @@ def login():
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
-
-
-if __name__ == '__main__':  # if we run the app in Python this statement is triggered
-    app.run(debug=True)
